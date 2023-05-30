@@ -1,0 +1,33 @@
+#+Title: Adobe CRM Integration
+
+* Integration in pipeline (S4.M3.W2)
+
+Content writers would like us to integrate with Adobe Experience manager.  Readme doesn't support it as a CRM integration, so as a workaround we can associate and inject content into a custom template that generates markdown from the Adobe CRM Content and the Repository markdown that is the "template" as part of the publish pipeline.  This would allow us to have a basic structure outlined for them with known injection points so the writers know what section they're writting and the format will generally stay consistent due to the templatized approach.
+
+** Exporting data from AEM
+
+There are a few ways of doing this it appears
+1) Adobe Content Services 
+
+Direct content delivery - [[https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/implementing/developing/full-stack/components-templates/json-exporter.html?lang=en][JSON Exporter]]
+
+2) AEM Headless GraphQL 
+   
+[[https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/headless/introduction.html?lang=en][Headless]] content delivery with [[https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/sites/administering/content-fragments/content-fragments-console.html?lang=en][Content Fragments]] - [[https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/assets/content-fragments/content-fragments-models.html?lang=en][Content Fragment Models]]
+
+[[https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/assets/content-fragments/content-fragments-graphql.html?lang=en][Headless content through GraphQL]]
+
+Content is taggable for lookup, so we should be able, given the project and tags lookup the sections of the documents we need.
+
+*** TODO: verify this assumption.
+
+** Build pipeline tooling
+
+As part of the publish process we will have an associated github repository we check out, run a tool we manage that checks out and substitutes the content from AEM, does checks for basic problems, and publishes the content to Readme.com staging area.  This can then be manually reviewed by someone and approved for publish in Readme's tooling.
+
+
+*** TODO: Find a good template system for markdown generation that does simple content substitution. We can either do it in markdown and just substitute out by known tokens ourselves, or use a more advanced tool.
+
+
+
+
