@@ -1,4 +1,4 @@
-#+Title Paylocity OpenAPI publisher POC
+#+Title: Paylocity OpenAPI publisher POC
 
 * Readme publishing process
 
@@ -57,5 +57,7 @@ curl https://dash/api-specification.readme.com/api/v1 -XPOST -u "_readme_api_key
 
 
 ** Personalized Docs (Enterprise feature)
+
 https://docs.readme.com/ent/docs/personalized-docs-webhook
+
 TLDR: Readme.com makes a POST to our registered callback service with the user information authorized, and we send variables to be used for personalization.
