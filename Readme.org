@@ -1,0 +1,61 @@
+#+Title Paylocity OpenAPI publisher POC
+
+* Readme publishing process
+
+Initially you will need the following items to use this:
+1) OpenAPI spec for the project to publish.
+2) Readme.com account and api key.
+3) rdme tool
+
+* Installing rdme
+To install rdme you will need npm.
+
+#+BEGIN_SRC bash
+npm install rdme@latest -g
+#+END_SRC
+
+
+* Installing Readme markdown flavor
+
+To install the same markdown support that readme uses (for local or future compatability with other systems / future changes):
+
+#+BEGIN_SRC bash
+npm install --save @readme/markdown
+#+END_SRC
+
+Note: This can be used for user data, glossary term injection, and variable injection in addition to normal markdown features: https://docs.readme.com/rdmd/docs/features#section-data-injection
+
+** Using rdme to publish your spec
+The rdme tool is Readme.com's way of interfacing with the portal from the CLI. It allows you to upload openapi from a file or a github url and also has other uses (https://docs.readme.com/main/docs/rdme). It's mainly intended as a way to easily get a CI pipeline publishing easily, like this github action (https://github.com/readmeio/rdme/blob/main/.github/workflows/docs.yml)
+
+#+BEGIN_SRC bash
+  rdme openapi --version=v1.0 --key="_your_readme_key_" openapi /path/to/openapi.json
+#+END_SRC
+
+
+* Readme API
+Readme itself has an api we can use to update pages and manage our portal:
+https://docs.readme.com/main/reference/intro/getting-started
+** Using Readme API to publish your spec
+Example of using the API to publish a spec:
+
+#+BEGIN_SRC bash
+curl https://dash/api-specification.readme.com/api/v1 -XPOST -u "_readme_api_key_goes_here_" --header 'accept: application/json' --header 'content-type: multipart/form-data' -d @/path/to/spec.json
+#+END_SRC
+
+** API allows:
++ listing our product APIs (Registry)
++ Syncing API (openapi spec)
++ Syncing / CRUD operations on docs (markdown / html files)
++ CRUD of "Custom Pages"
++ CRUD of "Categories"
++ Page view Metrics (via their Metrics API)
++ Page Quality -- by votes (via Metrics API)
++ Top Search terms / data by search term (via Metrics API) 
+
+* Approach to personalization
+
+
+** Personalized Docs (Enterprise feature)
+https://docs.readme.com/ent/docs/personalized-docs-webhook
+TLDR: Readme.com makes a POST to our registered callback service with the user information authorized, and we send variables to be used for personalization.
